@@ -37,6 +37,20 @@
  * the include of your alternate allocator if needed (not needed in order
  * to use the default libc allocator). */
 
-#define s_malloc malloc
-#define s_realloc realloc
+#include <stdio.h>
+#include <string.h>
+
+#include "esp_heap_caps.h"
+
+inline void* spi_malloc(size_t size) {
+	return heap_caps_malloc(size, MALLOC_CAP_SPIRAM);
+}
+
+inline void* spi_realloc(void* p, size_t size) {
+	return heap_caps_realloc(p, size, MALLOC_CAP_SPIRAM);
+}
+
+
+#define s_malloc spi_malloc
+#define s_realloc spi_realloc
 #define s_free free
