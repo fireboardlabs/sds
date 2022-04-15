@@ -37,10 +37,12 @@
  * the include of your alternate allocator if needed (not needed in order
  * to use the default libc allocator). */
 
+#include <sdkconfig.h>
 #include <stdio.h>
 #include <string.h>
 
-#ifdef ESP_PLATFORM
+#ifdef CONFIG_SPIRAM_SUPPORT
+#pragma message "eeek"
 #include "esp_heap_caps.h"
 
 inline void* spi_malloc(size_t size) {
