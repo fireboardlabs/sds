@@ -41,22 +41,19 @@
 #include <string.h>
 
 #ifdef ESP_PLATFORM
-#include "esp_heap_caps.h"
 
-inline void* spi_malloc(size_t size) {
-	return heap_caps_malloc(size, MALLOC_CAP_SPIRAM);
-}
+void* fb_sds_malloc(size_t size);
+void* fb_sds_realloc(void* p, size_t size);
+void fb_sds_free(void* p);
 
-inline void* spi_realloc(void* p, size_t size) {
-	return heap_caps_realloc(p, size, MALLOC_CAP_SPIRAM);
-}
+#define s_malloc fb_sds_malloc
+#define s_realloc fb_sds_realloc
+#define s_free fb_sds_free
 
-#define s_malloc spi_malloc
-#define s_realloc spi_realloc
-#define s_free free
 #else
+
 #define s_malloc malloc
 #define s_realloc realloc
 #define s_free free
-#endif
 
+#endif
