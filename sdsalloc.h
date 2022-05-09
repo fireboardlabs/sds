@@ -37,10 +37,11 @@
  * the include of your alternate allocator if needed (not needed in order
  * to use the default libc allocator). */
 
+#include <sdkconfig.h>
 #include <stdio.h>
 #include <string.h>
 
-#ifdef ESP_PLATFORM
+#if defined(ESP_PLATFORM) && defined(CONFIG_SPIRAM_SUPPORT)
 
 void* fb_sds_malloc(size_t size);
 void* fb_sds_realloc(void* p, size_t size);
