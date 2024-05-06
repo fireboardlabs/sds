@@ -597,6 +597,10 @@ int sdscmp(const sds s1, const sds s2) {
     size_t l1, l2, minlen;
     int cmp;
 
+    if( s1 == NULL || s2 == NULL ){
+        return -2;
+    }
+
     l1 = sdslen(s1);
     l2 = sdslen(s2);
     minlen = (l1 < l2) ? l1 : l2;
